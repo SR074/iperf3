@@ -1,7 +1,6 @@
 import configparser
 import subprocess
 import json
-import pprint
 #import mysql.connector
 
 config_ini = configparser.ConfigParser()
@@ -13,8 +12,6 @@ subprocess.run(
 
 json_open = open('temp.json', 'r')
 json_load = json.load(json_open)
-
-pprint.pprint(json_load)
 
 '''config = {
     'user': config_ini['mysql']['User'],
