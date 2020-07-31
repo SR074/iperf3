@@ -1,7 +1,7 @@
 import configparser
 import subprocess
 import json
-#import mysql.connector
+import mysql.connector
 
 config_ini = configparser.ConfigParser()
 config_ini.read('config.ini', encoding='utf-8')
@@ -13,7 +13,7 @@ subprocess.run(
 json_open = open('temp.json', 'r')
 json_load = json.load(json_open)
 
-'''config = {
+config = {
     'user': config_ini['mysql']['User'],
     'password': config_ini['mysql']['Password'],
     'host': config_ini['mysql']['Host'],
@@ -21,5 +21,3 @@ json_load = json.load(json_open)
 }
 cnx = mysql.connector.connect(**config)
 cursor = cnx.cursor()
-
-'''
