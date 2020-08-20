@@ -44,7 +44,9 @@ timestamp = res_json['start']['timestamp']['time']
 created = datetime.now(timezone(timedelta(hours=+9), 'JST'))
 
 sql = 'insert into results (host_id, remote_id, send_bytes, send_bps, receive_bytes, receive_bps, cpu_util_host, cpu_util_remote, timestamp, created) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
-cursor.execute(sql, host_id, remote_id, send_bytes,send_bps,receive_bytes,receive_bps,cpu_util_host,cpu_util_remote,timestamp,created)
+cursor.execute(sql, (
+    host_id, remote_id, send_bytes, send_bps, receive_bytes, receive_bps, cpu_util_host, cpu_util_remote, timestamp,
+    created))
 
 cursor.close()
 cnx.close()
