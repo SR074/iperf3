@@ -8,10 +8,13 @@ import mysql.connector
 config_ini = configparser.ConfigParser()
 config_ini.read('config.ini', encoding='utf-8')
 
+print('start iperf3 test...')
 subprocess.run(
     [config_ini['iperf3']['dir'], "-c", config_ini['iperf3']['AccessPoint'], "-p", config_ini['iperf3']['port'],
      "--logfile", "temp.json", "-J"])
 
+print('end iperf3 test')
+print('open iperf3 json result')
 json_open = open('temp.json', 'r')
 res_json = json.load(json_open)
 
@@ -22,12 +25,14 @@ config = {
     'port': config_ini['mysql']['Port'],
     'database': config_ini['mysql']['Database'],
 }
+
+print('connect mysql')
 cnx = mysql.connector.connect(**config)
 cnx.ping(reconnect=True)
 cursor = cnx.cursor()
 
-host_id = config_ini['mysql']['HostId']
-remote_id = config_ini['mysql']['RemoteId']
+host_id = config_ini['dbData']['HostId']
+remote_id = config_ini['dbData']['RemoteId']
 
 send_bytes = res_json['end']['sum_sent']['bytes']
 send_bps = res_json['end']['sum_sent']['bits_per_second']
@@ -43,3 +48,4 @@ cursor.execute(sql, host_id, remote_id, send_bytes,send_bps,receive_bytes,receiv
 
 cursor.close()
 cnx.close()
+print('end')
